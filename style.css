@@ -107,6 +107,13 @@ html.dark {
   background-size: 10vw !important;
   padding-left: 34%;
   padding-right: 8%;
+  /* The theme centers this layout with a CSS grid + margin:auto child, which
+     Chromium's print-to-pdf engine fails to resolve on export (title lands at
+     the top instead of the middle). Force flex centering instead, which is
+     robust under print pagination. */
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .slidev-layout.cover::before,
