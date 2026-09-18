@@ -1,4 +1,4 @@
-name: Release PDF export
+name: Release
 
 on:
   push:
@@ -7,13 +7,21 @@ on:
 
 permissions:
   contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
 
 jobs:
-  export:
+  release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -27,14 +35,7 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Export slides to PDF
-        run: npm run export -- --output "${{ github.event.repository.name }}-v${{ github.run_number }}.pdf"
-
-      - name: Create release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v${{ github.run_number }}
-          name: pdf slides v${{ github.run_number }}
-          files: ${{ github.event.repository.name }}-v${{ github.run_number }}.pdf
+      - name: Release
+        run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
