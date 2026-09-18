@@ -28,13 +28,13 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Export slides to PDF
-        run: npm run export -- --output slides-export.pdf
+        run: npm run export -- --output "${{ github.event.repository.name }}-v${{ github.run_number }}.pdf"
 
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ github.run_number }}
-          name: Slides export ${{ github.run_number }}
-          files: slides-export.pdf
+          name: pdf slides v${{ github.run_number }}
+          files: ${{ github.event.repository.name }}-v${{ github.run_number }}.pdf
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
