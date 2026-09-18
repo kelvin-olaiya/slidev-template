@@ -17,7 +17,7 @@ config.plugins.push(
     {
       assets: [
         {
-          path: `${REPO_NAME}-v\${nextRelease.version}.pdf`,
+          path: `${REPO_NAME}-v*.pdf`,
           label: 'PDF slides v${nextRelease.version}',
         },
       ],
