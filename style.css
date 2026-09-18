@@ -1,0 +1,155 @@
+/**
+ * Theme matching the official "Alma Mater Studiorum - Università di Bologna,
+ * Campus di Cesena" institutional PowerPoint template
+ * (ModelloPptIstituzionaleCesena16-9.pptx).
+ *
+ * Extracted from the template's slide master/layouts:
+ * - white background throughout
+ * - institutional red #BD2B0B used sparingly, only for slide titles
+ * - neutral gray (#595959, the theme's own hlink color) for secondary text
+ * - bold Calibri-style titles, Century-Gothic-style body text
+ */
+
+:root {
+  --slidev-theme-primary: #bd2b0b;
+  --brand-red: #bd2b0b;
+  --brand-gray: #595959;
+  --brand-gray-light: #b5b5b5;
+  --brand-ink: #1a1a1a;
+  --brand-paper: #ffffff;
+}
+
+html.dark {
+  --brand-paper: #161616;
+  --brand-ink: #e8e8e8;
+  --brand-gray-light: #444444;
+}
+
+.slidev-layout {
+  position: relative;
+  background: var(--brand-paper);
+  color: var(--brand-ink);
+}
+
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3 {
+  font-weight: 700;
+}
+
+.slidev-layout h1 {
+  color: var(--brand-red);
+  display: inline-block;
+}
+
+.slidev-layout h2 {
+  color: var(--brand-red);
+}
+
+.slidev-layout a {
+  color: var(--brand-red);
+  text-underline-offset: 3px;
+}
+
+.slidev-layout strong {
+  color: var(--brand-red);
+}
+
+.slidev-layout ul > li::marker,
+.slidev-layout ol > li::marker {
+  color: var(--brand-red);
+}
+
+.slidev-layout blockquote {
+  border-left: 3px solid var(--brand-red);
+  padding: 0.4em 1.2em;
+}
+
+.slidev-layout table th {
+  color: var(--brand-red);
+  border-bottom: 2px solid var(--brand-gray-light);
+}
+
+.slidev-layout table td,
+.slidev-layout table th {
+  border-color: var(--brand-gray-light);
+}
+
+.slidev-layout kbd {
+  border-color: var(--brand-gray-light);
+  background: transparent;
+  color: var(--brand-gray);
+}
+
+/* Footer: page number bottom-left, seal watermark bottom-right, like the master */
+.slidev-layout:not(.cover):not(.intro)::after {
+  content: '';
+  position: absolute;
+  right: 24px;
+  bottom: 18px;
+  width: 46px;
+  height: 46px;
+  background: url('/unibo-seal.png') no-repeat center / contain;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* Cover / intro: seal on the left, thin gray rule, gray (not red) title on the right --
+   mirrors the template's "Layout COPERTINA" */
+.slidev-layout.cover,
+.slidev-layout.intro {
+  position: relative;
+  text-align: left;
+  color: var(--brand-gray);
+  background-image: url('/unibo-seal.png') !important;
+  background-repeat: no-repeat !important;
+  background-position: 6% center !important;
+  background-size: 10vw !important;
+  padding-left: 34%;
+  padding-right: 8%;
+  /* The theme centers this layout with a CSS grid + margin:auto child, which
+     Chromium's print-to-pdf engine fails to resolve on export (title lands at
+     the top instead of the middle). Force flex centering instead, which is
+     robust under print pagination. */
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.slidev-layout.cover::before,
+.slidev-layout.intro::before {
+  content: '';
+  position: absolute;
+  left: 30%;
+  top: 10%;
+  bottom: 10%;
+  width: 1px;
+  background: var(--brand-gray-light);
+}
+
+.slidev-layout.cover h1,
+.slidev-layout.intro h1 {
+  color: inherit;
+  font-size: 2.6rem;
+  line-height: 1.2;
+}
+
+.slidev-layout.cover h1 + p,
+.slidev-layout.intro h1 + p {
+  color: var(--brand-gray);
+  opacity: 0.85;
+}
+
+/* Section / statement / fact / quote: same institutional palette, centered emphasis */
+.slidev-layout.section,
+.slidev-layout.statement,
+.slidev-layout.fact,
+.slidev-layout.quote {
+  text-align: center;
+}
+
+.slidev-layout.section h1,
+.slidev-layout.statement h1,
+.slidev-layout.fact h1 {
+  color: var(--brand-red);
+}
