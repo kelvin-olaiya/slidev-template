@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "playwright-chromium": "^1.63.0",
-    "semantic-release": "25.0.2",
+    "semantic-release": "25.0.9",
     "semantic-release-preconfigured-conventional-commits": "^1.1.157"
   }
 }
